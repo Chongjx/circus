@@ -3,9 +3,16 @@ package circus;
 import circus.animal.Animal;
 import circus.animal.Duck;
 import circus.animal.Parrot;
+import circus.animal.Tiger;
+import circus.stuff.Cage;
 import circus.stuff.Cannon;
 import circus.stuff.Equipment;
 import circus.stuff.Ladder;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Circus {
     private static Animal[] animals = {
@@ -41,7 +48,50 @@ public class Circus {
 
     public static void main(String[] args) {
         makeAnimalsTalk();
+
+        // makeAnimalsTalk();
+        // System.out.println("Total value of equipments " + calculateValue(equipments));
+        // System.out.println("Total value of animals " + calculateValue(animals));
+
+        System.out.println(animals.length);
+
+        ArrayList<Animal> animalArrayList = new ArrayList<>(Arrays.asList(animals));
+
+        animalArrayList.add(new Duck("Goose"));
+        animalArrayList.add(new Parrot("Dolly"));
+
+        Duck louie = new Duck("Louie");
+        animalArrayList.add(louie);
+
+        for (Animal a :animalArrayList) {
+            System.out.println(a);
+        }
+
+        animalArrayList.sort(Animal.AnimalNameComparator);
+
+        for (Animal a :animalArrayList) {
+            System.out.println(a);
+        }
+
         System.out.println("Total value of equipments " + calculateValue(equipments));
         System.out.println("Total value of animals " + calculateValue(animals));
+        Cage<Duck> duckCage = new Cage<>();
+        Duck duck = new Duck("Hey");
+        duckCage.lockUp(duck);
+        Parrot parrot = new Parrot("Popper");
+        Cage<Parrot> parrotCage = new Cage<>();
+        parrotCage.lockUp(parrot);
+
+        Tiger tiger = new Tiger("Sherkan");
+        Cage<Tiger> tigerCage = new Cage<>();
+        tigerCage.lockUp(tiger);
+
+        ArrayList<Cage> cages = new ArrayList<>();
+        cages.add(duckCage);
+        cages.add(parrotCage);
+        cages.add(tigerCage);
+        for(Cage c: cages) {
+            c.release();
+        }
     }
 }
